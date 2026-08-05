@@ -1,0 +1,70 @@
+.contact-main {
+  display: grid;
+  gap: 26px;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 28px;
+}
+
+.contact-info {
+  display: grid;
+  gap: 18px;
+  padding: 22px;
+}
+
+.info-card {
+  padding: 22px 18px;
+  background: #fff;
+}
+
+.info-card h2 {
+  margin-bottom: 10px;
+  color: #5d0d0d;
+}
+
+.info-card p {
+  color: #4b5563;
+  line-height: 1.7;
+}
+
+.contact-form {
+  padding: 24px 22px;
+  display: grid;
+  gap: 18px;
+}
+
+.contact-form label,
+.advisor-form label {
+  display: grid;
+  gap: 8px;
+  color: #374151;
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select,
+.advisor-form input,
+.advisor-form textarea,
+.advisor-form select {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: #fff;
+  color: #1f2937;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+@media (max-width: 860px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+}

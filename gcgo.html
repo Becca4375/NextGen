@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCGO Quiz</title>
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <header class="site-header">
+        <h1>NextGen</h1>
+        <nav class="nav">
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="gcgo.html">Quiz</a></li>
+                <li><a href="results.html">Results</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="quiz-page">
+        <section class="quiz-header">
+            <p class="eyebrow">Assessment</p>
+            <h1>Student Project Fit Quiz</h1>
+            <div class="timer-wrap">
+                <span>Time left</span>
+                <strong id="timer">02:30</strong>
+            </div>
+            <div class="progress-block">
+                <div class="progress-labels">
+                    <span>Progress</span>
+                    <span id="progressText">0 / 9</span>
+                </div>
+                <div class="progress-bar">
+                    <span id="progressBar"></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="quiz-shell">
+            <div id="startScreen" class="start-screen">
+                <div class="start-card">
+                    <p class="eyebrow">Ready?</p>
+                    <h2>Answer nine quick questions</h2>
+                    <p>Choose the option that feels most like you. Your timer will begin as soon as you press start.</p>
+                    <button class="primary-btn" id="startQuizBtn" type="button">Start Quiz</button>
+                </div>
+            </div>
+
+            <div id="questionCard" class="question-card" hidden></div>
+            <div id="quizWarning" class="quiz-warning" aria-live="polite"></div>
+            <div class="quiz-actions">
+                <button class="secondary-btn" id="prevBtn" type="button">Previous</button>
+                <button class="primary-btn" id="nextBtn" type="button">Next</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-brand">
+            <h2>GCGO Advisor</h2>
+        </div>
+        <nav class="footer-nav">
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="gcgo.html">Quiz</a></li>
+                <li><a href="results.html">Results</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </footer>
+
+    <script>
+        const questions = [
+            { prompt: 'Which activity do you enjoy most?', media: '💡', options: [
+                { text: 'Teaching others', value: { education: 5, women: 2 } },
+                { text: 'Problem solving with technology', value: { innovation: 5, education: 2 } },
+                { text: 'Community outreach', value: { health: 3, women: 3 } },
+                { text: 'Designing impactful ideas', value: { climate: 3, innovation: 4 } }
+            ] },
+            { prompt: 'What type of challenge inspires you most?', media: '🌍', options: [
+                { text: 'Learning access', value: { education: 5 } },
+                { text: 'Health awareness', value: { health: 5 } },
+                { text: 'Environmental sustainability', value: { climate: 5 } },
+                { text: 'Women leadership and mentorship', value: { women: 5 } }
+            ] },
+            { prompt: 'Which best describes your communication style?', media: '🗣️', options: [
+                { text: 'I explain ideas clearly to others', value: { education: 4, women: 3 } },
+                { text: 'I prefer data and analytics', value: { innovation: 4, climate: 2 } },
+                { text: 'I connect people and build trust', value: { women: 5, health: 2 } },
+                { text: 'I present visually and creatively', value: { education: 3, climate: 2 } }
+            ] },
+            { prompt: 'How do you respond to a local problem?', media: '🔎', options: [
+                { text: 'Research the root cause', value: { innovation: 4, education: 2 } },
+                { text: 'Create a practical community action', value: { health: 4, climate: 3 } },
+                { text: 'Mobilize a support network', value: { women: 4, education: 2 } },
+                { text: 'Build a digital solution', value: { innovation: 5 } }
+            ] },
+            { prompt: 'Which skill would you like to improve?', media: '📈', options: [
+                { text: 'Leadership and mentoring', value: { women: 5, education: 3 } },
+                { text: 'Public health awareness', value: { health: 5 } },
+                { text: 'Sustainability planning', value: { climate: 5 } },
+                { text: 'Coding and digital tools', value: { innovation: 5, education: 2 } }
+            ] },
+            { prompt: 'How do you prefer to work?', media: '🤝', options: [
+                { text: 'Team-based projects', value: { women: 3, education: 2 } },
+                { text: 'Independent research', value: { innovation: 4 } },
+                { text: 'Community engagement', value: { health: 4, climate: 2 } },
+                { text: 'Creative workshops', value: { education: 4, women: 2 } }
+            ] },
+            { prompt: 'Which outcome matters most to you?', media: '🏆', options: [
+                { text: 'Improving access to learning', value: { education: 5 } },
+                { text: 'Supporting health and wellbeing', value: { health: 5 } },
+                { text: 'Reducing environmental harm', value: { climate: 5 } },
+                { text: 'Empowering women and youth', value: { women: 5 } }
+            ] },
+            { prompt: 'How would you measure success?', media: '📊', options: [
+                { text: 'More people gaining new skills', value: { education: 5 } },
+                { text: 'Improved community health outcomes', value: { health: 5 } },
+                { text: 'Less waste and greener behaviors', value: { climate: 5 } },
+                { text: 'Stronger leadership and opportunities', value: { women: 5 } }
+            ] },
+            { prompt: 'Which project style feels right for you?', media: '🚀', options: [
+                { text: 'A structured mentorship program', value: { women: 5, education: 2 } },
+                { text: 'A practical health campaign', value: { health: 5 } },
+                { text: 'A climate action initiative', value: { climate: 5 } },
+                { text: 'A digital innovation project', value: { innovation: 5 } }
+            ] }
+        ];
+
+        let currentIndex = 0;
+        let selectedAnswers = Array(questions.length).fill(null);
+        let timeLeft = 150;
+        let timerId = null;
+        let quizStarted = false;
+
+        const startScreen = document.getElementById('startScreen');
+        const questionCard = document.getElementById('questionCard');
+        const timerEl = document.getElementById('timer');
+        const progressText = document.getElementById('progressText');
+        const progressBar = document.getElementById('progressBar');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const startQuizBtn = document.getElementById('startQuizBtn');
+        const quizWarning = document.getElementById('quizWarning');
+
+        function updateTimerDisplay() {
+            const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+            const seconds = String(timeLeft % 60).padStart(2, '0');
+            timerEl.textContent = `${minutes}:${seconds}`;
+        }
+
+        function stopTimer() {
+            if (timerId) {
+                clearInterval(timerId);
+                timerId = null;
+            }
+        }
+
+        function startTimer() {
+            if (timerId) return;
+
+            timerId = setInterval(() => {
+                timeLeft -= 1;
+                updateTimerDisplay();
+
+                if (timeLeft <= 0) {
+                    stopTimer();
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        function setWarning(message) {
+            quizWarning.textContent = message;
+            quizWarning.classList.toggle('visible', Boolean(message));
+        }
+
+        function updateProgress() {
+            const answeredCount = selectedAnswers.filter((answer) => answer !== null).length;
+            const percentage = quizStarted ? ((currentIndex + 1) / questions.length) * 100 : 0;
+            progressText.textContent = `${Math.min(currentIndex + 1, questions.length)} / ${questions.length}`;
+            progressBar.style.width = `${percentage}%`;
+            prevBtn.style.visibility = currentIndex === 0 || !quizStarted ? 'hidden' : 'visible';
+            nextBtn.textContent = currentIndex === questions.length - 1 ? 'Submit' : 'Next';
+            nextBtn.disabled = !quizStarted;
+            if (!quizStarted) {
+                progressText.textContent = '0 / 9';
+                progressBar.style.width = '0%';
+            }
+        }
+
+        function renderQuestion() {
+            const question = questions[currentIndex];
+            const selected = selectedAnswers[currentIndex];
+
+            questionCard.classList.remove('swipe-left', 'swipe-right');
+            questionCard.innerHTML = `
+                <div class="question-media">${question.media}</div>
+                <div class="question-meta">Question ${currentIndex + 1}</div>
+                <h2>${question.prompt}</h2>
+                <div class="option-list">
+                    ${question.options.map((option, index) => `
+                        <button class="option-btn ${selected === index ? 'selected' : ''}" type="button" data-index="${index}">
+                            ${option.text}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+
+            questionCard.querySelectorAll('.option-btn').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const optionIndex = Number(button.dataset.index);
+                    selectedAnswers[currentIndex] = optionIndex;
+                    setWarning('');
+                    questionCard.classList.remove('swipe-left', 'swipe-right');
+                    questionCard.classList.add('swipe-left');
+
+                    setTimeout(() => {
+                        if (currentIndex < questions.length - 1) {
+                            currentIndex += 1;
+                            renderQuestion();
+                        } else {
+                            submitQuiz();
+                        }
+                    }, 220);
+                });
+            });
+
+            requestAnimationFrame(() => {
+                questionCard.classList.add('card-in');
+            });
+
+            updateProgress();
+        }
+
+        function submitQuiz() {
+            stopTimer();
+            const scores = { education: 0, health: 0, climate: 0, women: 0, innovation: 0 };
+
+            questions.forEach((question, index) => {
+                const picked = selectedAnswers[index];
+                if (picked === null) return;
+                const optionValue = question.options[picked].value;
+
+                Object.keys(scores).forEach((key) => {
+                    scores[key] += optionValue[key] || 0;
+                });
+            });
+
+            const result = {
+                title: 'Student Impact Match',
+                profile: scores,
+                topPillar: Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0],
+                score: Math.max(...Object.values(scores))
+            };
+
+            localStorage.setItem('gcgoResult', JSON.stringify(result));
+            window.location.href = 'results.html';
+        }
+
+        function startQuiz() {
+            quizStarted = true;
+            startScreen.hidden = true;
+            questionCard.hidden = false;
+            setWarning('');
+            updateTimerDisplay();
+            startTimer();
+            renderQuestion();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (!quizStarted || currentIndex === 0) {
+                return;
+            }
+
+            setWarning('');
+            currentIndex -= 1;
+            renderQuestion();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (!quizStarted) return;
+
+            if (selectedAnswers[currentIndex] === null) {
+                setWarning('Please select an answer before moving on.');
+                return;
+            }
+
+            setWarning('');
+            if (currentIndex < questions.length - 1) {
+                questionCard.classList.remove('swipe-left', 'swipe-right');
+                questionCard.classList.add('swipe-left');
+
+                setTimeout(() => {
+                    currentIndex += 1;
+                    renderQuestion();
+                }, 220);
+            } else {
+                submitQuiz();
+            }
+        });
+
+        startQuizBtn.addEventListener('click', startQuiz);
+        updateTimerDisplay();
+        updateProgress();
+    </script>
+</body>
+</html>

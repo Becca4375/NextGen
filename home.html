@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCGO Advisor</title>
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <header class="site-header">
+        <h1>NextGen</h1>
+        <nav class="nav">
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="gcgo.html">Quiz</a></li>
+                <li><a href="results.html">Results</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="landing-page">
+        <section class="header-panel">
+            <h1> Welcome to the GCGO Advisor</h1>
+            <p>your mission our priority</p>
+        </section>
+    
+        <section class="hero-panel">
+            <div class="hero-copy">
+                <p class="eyebrow">Grand Challenges &amp; Grand Opportunities</p>
+                <h1>Find the right student project path for you.</h1>
+                <p>Begin with your profile and discover which GCGO pillar best matches your strengths, interests, and community impact goals.</p>
+            </div>
+
+            <form class="student-form" id="studentForm" novalidate>
+                <h2>Student Profile</h2>
+
+                <label>
+                    <span>Full Name</span>
+                    <input type="text" id="name" placeholder="Enter your full name">
+                    <small class="error-message" data-error-for="name"></small>
+                </label>
+
+                <label>
+                    <span>Email Address</span>
+                    <input type="email" id="email" placeholder="you@example.com">
+                    <small class="error-message" data-error-for="email"></small>
+                </label>
+
+
+                <label>
+                    <span>Field of Study</span>
+                    <select id="field">
+                        <option value="">Select your field</option>
+                        <option>Computer Science</option>
+                        <option>Engineering</option>
+                        <option>Business</option>
+                        <option>Health Sciences</option>
+                        <option>Social Sciences</option>
+                        <option>Arts &amp; Design</option>
+                    </select>
+                    <small class="error-message" data-error-for="field"></small>
+                </label>
+
+                <label>
+                    <span>Top Interest</span>
+                    <input type="text" id="interest" placeholder="Example: innovation, education, health">
+                    <small class="error-message" data-error-for="interest"></small>
+                </label>
+
+                <button type="submit" class="primary-btn" id="startBtn" disabled>Start Assessment</button>
+            </form>
+        </section>
+
+        <section class="feature-grid">
+            <article class="feature-card">
+                <span class="feature-badge">01</span>
+                <h3>Profile Match</h3>
+                <p>Understand which challenge area aligns with your skills, interests, and academic focus.</p>
+            </article>
+            <article class="feature-card">
+                <span class="feature-badge">02</span>
+                <h3>Interactive Quiz</h3>
+                <p>Answer short, engaging questions with progress tracking and timers for quick decision-making.</p>
+            </article>
+            <article class="feature-card">
+                <span class="feature-badge">03</span>
+                <h3>Actionable Results</h3>
+                <p>Receive recommendations, impact insights, and project suggestions based on your answers.</p>
+            </article>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-brand">
+            <h2>GCGO Advisor</h2>
+        </div>
+        <nav class="footer-nav">
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="gcgo.html">Quiz</a></li>
+                <li><a href="results.html">Results</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </footer>
+
+    <script>
+        const form = document.getElementById('studentForm');
+        const startBtn = document.getElementById('startBtn');
+        const fields = {
+            name: document.getElementById('name'),
+            email: document.getElementById('email'),
+            studentId: document.getElementById('studentId'),
+            field: document.getElementById('field'),
+            interest: document.getElementById('interest')
+        };
+
+        function validateField(id, value) {
+            const errorNode = document.querySelector(`[data-error-for="${id}"]`);
+            let message = '';
+
+            if (id === 'name' && value.trim().length < 2) {
+                message = 'Please enter your full name.';
+            }
+            if (id === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                message = 'Please enter a valid email address.';
+            }
+            if (id === 'studentId' && value.trim().length < 4) {
+                message = 'Student ID is required.';
+            }
+            if (id === 'field' && !value) {
+                message = 'Please select your field.';
+            }
+            if (id === 'interest' && value.trim().length < 3) {
+                message = 'Please tell us your main interest.';
+            }
+
+            errorNode.textContent = message;
+            fields[id].classList.toggle('invalid', Boolean(message));
+            return !message;
+        }
+
+        function checkFormValidity() {
+            const isValid = Object.keys(fields).every((key) => validateField(key, fields[key].value));
+            startBtn.disabled = !isValid;
+            return isValid;
+        }
+
+        Object.keys(fields).forEach((key) => {
+            fields[key].addEventListener('input', () => {
+                validateField(key, fields[key].value);
+                checkFormValidity();
+            });
+            fields[key].addEventListener('change', () => {
+                validateField(key, fields[key].value);
+                checkFormValidity();
+            });
+        });
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            if (!checkFormValidity()) return;
+
+            const profile = {
+                name: fields.name.value.trim(),
+                email: fields.email.value.trim(),
+                studentId: fields.studentId.value.trim(),
+                field: fields.field.value,
+                interest: fields.interest.value.trim()
+            };
+
+            localStorage.setItem('studentProfile', JSON.stringify(profile));
+            window.location.href = 'gcgo.html';
+        });
+    </script>
+</body>
+</html>
+
+
