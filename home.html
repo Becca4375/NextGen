@@ -8,24 +8,117 @@
     <link rel="stylesheet" href="home.css">
 </head>
 <body>
-    <header class="site-header">
-        <h1>NextGen</h1>
-        <nav class="nav">
-            <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="gcgo.html">Quiz</a></li>
-                <li><a href="results.html">Results</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+
+    <!--top navigation with search -->
+    <header class="navbar">
+        <div class="logo">
+            <img src="images/logo.png" alt="GCGO Advisor Logo">
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Search global goals, skills, projects..." id="searchInput">
+            <button class="search-btn">🔍</button> 
+        </div>
+        <div class="nav-icons">
+            <span>👤 profile</span>
+        </div>
     </header>
+
+    <!--hero section with circular pillars-->
+    <section class="hero-banner">
+        <h2>connect you skills to global citizen goals</h2>
+
+        <div class="circular-circular-categories">
+            <div class="category-item">
+                <div class=""circle edu-circle">📚</div>
+                <span>Education</span>
+            </div>
+            <div class="category-item">
+                <div class=""circle health-circle">🩺</div>     
+                <span>Health</span>
+            </div>
+            <div class="category-item">
+                <div class=""circle climate-circle">🌱</div>    
+                <span>Climate</span>
+            </div>
+            <div class="category-item">
+                <div class=""circle women-circle">⚡</div>
+                <span>Women's Empowerment</span>
+            </div>
+            <div class="category-item">
+                <div class=""circle tech-circle">💻</div>
+                <span>Technology</span>
+            </div>
+        </div>
+    </section>
+
+    <!--featured project grid section -->
+    <main class="content-section">
+        <h3>Explore featured student initiatives</h3>
+
+
+        <div class="project-grid">
+            <!--card 1-->
+            <div class="project-card">
+                <img src="images/project1.jpg" alt="Project 1">
+                <div class="card-body">
+                    <h4>Digital Literacy Workshops</h4>
+                    <p>Empowering communities through technology education.</p>
+                </div>
+            </div>
+
+            <!--card 2-->
+            <div class="project-card">
+                <img src="images/project2.jpg" alt="Project 2">
+                <div class="card-body">
+                    <h4>Community Health Campaigns</h4>
+                    <p>Promoting wellness and preventive care in local neighborhoods.</p>
+                </div>
+            </div>
+
+            <!--card 3-->
+            <div class="project-card">
+                <img src="images/project3.jpg" alt="Project 3">
+                <div class="card-body">
+                    <h4>Climate Action Initiatives</h4>
+                    <p>Engaging students in sustainability and environmental projects.</p>
+                </div>
+            </div>
+
+            <!--card 4-->
+            <div class="project-card">
+                <img src="images/project4.jpg" alt="Project 4">
+                <div class="card-body">
+                    <h4>Women's Empowerment Programs</h4>
+                    <p>Supporting gender equality and leadership development.</p>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <main class="landing-page">
         <section class="header-panel">
-            <h1> Welcome to the GCGO Advisor</h1>
-            <p>your mission our priority</p>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <p class="eyebrow">Grand Challenges &amp; Grand Opportunities</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main class="landing-page">
+        <section class="header-panel">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <p class="eyebrow">Grand Challenges &amp; Grand Opportunities</p>
+                <h1>Welcome to the GCGO Advisor</h1>
+                <p>Your mission, our priority.</p>
+                <div class="hero-actions">
+                    <a href="#studentForm" class="primary-btn">Get Started</a>
+                    <a href="gcgo.html" class="secondary-btn">Take Quiz</a>
+                </div>
+            </div>
         </section>
-    
+
         <section class="hero-panel">
             <div class="hero-copy">
                 <p class="eyebrow">Grand Challenges &amp; Grand Opportunities</p>
@@ -48,6 +141,11 @@
                     <small class="error-message" data-error-for="email"></small>
                 </label>
 
+                <label>
+                    <span>Student ID</span>
+                    <input type="text" id="studentId" placeholder="e.g. STU-2049">
+                    <small class="error-message" data-error-for="studentId"></small>
+                </label>
 
                 <label>
                     <span>Field of Study</span>
@@ -69,7 +167,7 @@
                     <small class="error-message" data-error-for="interest"></small>
                 </label>
 
-                <button type="submit" class="primary-btn" id="startBtn" disabled>Start Assessment</button>
+                <button type="submit" class="primary-btn" id="startBtn">Start Assessment</button>
             </form>
         </section>
 
@@ -106,75 +204,7 @@
         </nav>
     </footer>
 
-    <script>
-        const form = document.getElementById('studentForm');
-        const startBtn = document.getElementById('startBtn');
-        const fields = {
-            name: document.getElementById('name'),
-            email: document.getElementById('email'),
-            studentId: document.getElementById('studentId'),
-            field: document.getElementById('field'),
-            interest: document.getElementById('interest')
-        };
-
-        function validateField(id, value) {
-            const errorNode = document.querySelector(`[data-error-for="${id}"]`);
-            let message = '';
-
-            if (id === 'name' && value.trim().length < 2) {
-                message = 'Please enter your full name.';
-            }
-            if (id === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                message = 'Please enter a valid email address.';
-            }
-            if (id === 'studentId' && value.trim().length < 4) {
-                message = 'Student ID is required.';
-            }
-            if (id === 'field' && !value) {
-                message = 'Please select your field.';
-            }
-            if (id === 'interest' && value.trim().length < 3) {
-                message = 'Please tell us your main interest.';
-            }
-
-            errorNode.textContent = message;
-            fields[id].classList.toggle('invalid', Boolean(message));
-            return !message;
-        }
-
-        function checkFormValidity() {
-            const isValid = Object.keys(fields).every((key) => validateField(key, fields[key].value));
-            startBtn.disabled = !isValid;
-            return isValid;
-        }
-
-        Object.keys(fields).forEach((key) => {
-            fields[key].addEventListener('input', () => {
-                validateField(key, fields[key].value);
-                checkFormValidity();
-            });
-            fields[key].addEventListener('change', () => {
-                validateField(key, fields[key].value);
-                checkFormValidity();
-            });
-        });
-
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            if (!checkFormValidity()) return;
-
-            const profile = {
-                name: fields.name.value.trim(),
-                email: fields.email.value.trim(),
-                studentId: fields.studentId.value.trim(),
-                field: fields.field.value,
-                interest: fields.interest.value.trim()
-            };
-
-            localStorage.setItem('studentProfile', JSON.stringify(profile));
-            window.location.href = 'gcgo.html';
-        });
-    </script>
+    <script src="home.js"></script>
 </body>
 </html>
 

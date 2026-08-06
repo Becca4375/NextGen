@@ -8,7 +8,14 @@ html, body {
 * {
   box-sizing: border-box;
 }
+.logo img {
+  height:100px;
+  width: 100px;
+  border-radius: 50%;
+  margin-right: 10px;
 
+
+}
 body {
   min-height: 100vh;
   display: flex;
@@ -41,6 +48,14 @@ button, input, select, textarea {
   z-index: 20;
 }
 
+/* Button to reveal links */
+.menu-toggle {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 .site-header h1 {
   margin: 0;
   color: #8d1514;
@@ -61,6 +76,12 @@ button, input, select, textarea {
   font-weight: 600;
   padding: 8px 11px;
   border-radius: 8px;
+}
+nav a.active {
+  background: #f9ece8;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
 }
 
 .nav a:hover {

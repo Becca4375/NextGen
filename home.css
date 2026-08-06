@@ -1,3 +1,144 @@
+*{
+  box-sizing:border-box;
+  margin: 0;
+  padding:0;
+  font-family: sans-serif;
+}
+
+/*navbar*/
+.navbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 2rem;
+  background-color: #fff;
+  border-bottom: 1px solid #2c0606;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+}
+
+
+.logo{
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #8d1514;
+}
+
+.search-container{
+  display: flex;
+  width:50%;
+  max-width:600px;
+
+}
+.search-container input[type="text"]{
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 2px solid #ccc;
+  border-radius:  25px 0 0 25px;
+  outline: none;
+}
+.search-btn{
+  padding: 0.5rem 1rem;
+  background-color: #8d1514;
+  color: #fff;
+  border: 2px solid #8d1514;
+  border-left: none;
+  border-radius: 0 25px 25px 0;
+  cursor: pointer;
+}
+
+/*hero section */
+.hero-banner{
+  background-color: rgb(117, 90, 90);
+  color: white;
+  text-align: center;
+  padding: 2.5rem 1rem 3rem 1rem;
+}
+
+.hero-banner h2{
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+  font-weight: 5000;
+}
+/*circular category icons*/
+.circular-categories{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.category-item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  width: 90px;
+}
+.category-item img{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+
+.circle{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  box-shadow: 0 4px 10px rgba( 0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.circle:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.category-item span{
+  text-align: center;
+  font-size: 0.9rem;
+  color: #333;
+  text-align: center;
+  font-weight: 600;
+}
+
+/*content section and grid cards*/
+.content-section{
+  max-width: 1100px;
+  margin: 2.5rem auto;
+  padding: 0 1rem;
+}
+
+.content-section h3{
+  font-size: 1.3rem;
+  color:#2c0606;
+  margin-bottom: 1.5rem;
+}
+
+.project-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr);
+  gap: 1.5rem;
+}
+
+
+
+
 .landing-page {
   display: grid;
   gap: 30px;
@@ -33,17 +174,65 @@
 }
 
 .header-panel {
-  display: grid;
-  place-items: center;
-  background: url(images/background.jpg) no-repeat center center;
-  background-size: cover;
-  padding: 32px;
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url(images/background.jpg) center center / cover no-repeat;
+  overflow: hidden;
   box-shadow: 0 18px 40px rgba(31,41,55,0.05);
-  grid-template-columns: 1.2fr 0.8fr;
-  height: 506px;
-  margin: 0 auto 0;
-  width: min(1200px, calc(100% - 32px));
 }
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.42);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: min(1200px, calc(100% - 48px));
+  text-align: left;
+  color: #fff;
+  padding: 24px 0;
+}
+
+.hero-content h1 {
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  line-height: 1.08;
+  margin: 10px 0 18px;
+  color: #fff;
+  max-width: 760px;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  max-width: 700px;
+  color: rgba(255,255,255,0.9);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.hero-actions .primary-btn,
+.hero-actions .secondary-btn {
+  text-decoration: none;
+}
+
+.hero-actions .secondary-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.6);
+  color: #fff;
+}
+
 .student-form {
   background: rgba(255,255,255,0.9);
   border: 1px solid #f0e1d8;
