@@ -1,70 +1,72 @@
-.contact-main {
-  display: grid;
-  gap: 26px;
-}
-
-.contact-layout {
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 28px;
-}
-
-.contact-info {
-  display: grid;
-  gap: 18px;
-  padding: 22px;
-}
-
-.info-card {
-  padding: 22px 18px;
-  background: #fff;
-}
-
-.info-card h2 {
-  margin-bottom: 10px;
-  color: #5d0d0d;
-}
-
-.info-card p {
-  color: #4b5563;
-  line-height: 1.7;
-}
-
-.contact-form {
-  padding: 24px 22px;
-  display: grid;
-  gap: 18px;
-}
-
-.contact-form label,
-.advisor-form label {
-  display: grid;
-  gap: 8px;
-  color: #374151;
-  font-weight: 600;
-}
-
-.contact-form input,
-.contact-form textarea,
-.contact-form select,
-.advisor-form input,
-.advisor-form textarea,
-.advisor-form select {
+.contact-page {
   width: 100%;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  padding: 12px 14px;
-  background: #fff;
-  color: #1f2937;
+  max-width: 1200px; /* Expands horizontal layout while keeping comfortable margins */
+  margin: 0 auto;    /* Keeps content centered */
 }
 
-textarea {
-  min-height: 120px;
-  resize: vertical;
-}
+/* Stack the feedback form directly below the author information. */
+.contact-intro { 
+    max-width:760px; 
+    margin-bottom:2.5rem; }
+    
+.contact-intro p:last-child { 
+    color:var(--stanford-gray); 
+    font-size:1.05rem; }
+    
+.contact-layout { 
+    display:grid; 
+    grid-template-columns:1fr; 
+    gap:1.4rem; }
+    
+.contact-card { 
+    padding:1.7rem; }
+    
+.author-box { 
+    background:var(--sage); 
+    border-top:5px solid #45634f; }
+    
+.author-box h2 { 
+    color: black; 
+    font-size:1.7rem; }
 
-@media (max-width: 860px) {
-  .contact-layout {
-    grid-template-columns: 1fr;
-  }
+.author-box a { 
+    color: black; 
+    font-size: 1.2rem; }    
+    
+.author-box p { 
+    padding:.65rem 0; 
+    margin:0; 
+    border-bottom:1px solid rgb(69 99 79 / .2); 
+    color: black }
+
+.author-box a:active {
+  font-size: 0.1rem; 
 }
+    
+.contact-form { 
+    display:grid; 
+    gap:1rem; 
+    border-top:5px solid var(--stanford-cardinal); }
+    
+.contact-form label { 
+    display:grid; 
+    gap:.35rem; 
+    color:#393532; 
+    font-size:.9rem; 
+    font-weight:800; }
+    
+.contact-form input,.contact-form select,.contact-form textarea { 
+    width:100%; 
+    padding:.75rem; 
+    border:1px solid #aaa69e; 
+    border-radius:2px; }
+    
+.contact-form textarea { 
+    min-height:130px; 
+    resize:vertical; }
+    
+.contact-form .primary-btn { 
+    justify-self:start; }
+    
+@media (max-width:760px) { 
+    .contact-layout { grid-template-columns:1fr; } }

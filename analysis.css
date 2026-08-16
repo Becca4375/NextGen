@@ -1,3 +1,50 @@
+.pathway-switcher { 
+  display:grid; 
+  grid-template-columns:1fr auto; 
+  gap:1rem 2rem; 
+  align-items:end; 
+  padding:1.7rem; 
+  border-radius:12px; 
+  background:linear-gradient(120deg,#5e0d0d,#8c1515); 
+  color:#fff; 
+  box-shadow:0 14px 28px rgb(94 13 13 / .18); }
+  
+.pathway-switcher h2 { 
+  margin:0; 
+  font-size:clamp(1.55rem,3vw,2.35rem); }
+  
+.pathway-switcher .eyebrow { 
+  color:#f5d7d7; }
+  
+.pathway-tabs { 
+  display:flex; 
+  flex-wrap:wrap; 
+  gap:.5rem; }
+  
+.pathway-tab { 
+  border:1px solid rgb(255 255 255 / .4); 
+  border-radius:999px; 
+  background:transparent; 
+  color:#fff; 
+  padding:.5rem .8rem; 
+  font-weight:800; 
+  transition:background .2s ease,color .2s ease,transform .2s ease; }
+  
+.pathway-tab:hover,.pathway-tab.is-selected { 
+  background:#fff; 
+  color:#8c1515; 
+  transform:translateY(-2px); }
+  
+.pathway-message { 
+  grid-column:1 / -1; 
+  margin:0; 
+  padding-top:.9rem; 
+  border-top:1px solid rgb(255 255 255 / .25); 
+  color:#f9e7e5; }
+  
+@media (max-width:720px) { 
+  .pathway-switcher { grid-template-columns:1fr; } }
+
 .dashboard-main {
   display: grid;
   gap: 28px;
@@ -83,6 +130,16 @@
   color: #374151;
 }
 
+.bar-item label strong { 
+  float:right; 
+  color:var(--stanford-cardinal); }
+
+.bar-item.is-active label { 
+  color:var(--stanford-cardinal); }
+
+.bar-item.is-active .bar { 
+  box-shadow:0 0 0 3px rgb(140 21 21 / .12); }
+
 .bar {
   width: 100%;
   height: 12px;
@@ -142,3 +199,32 @@
     padding: 18px 16px;
   }
 }
+
+.bar span { 
+  transform:scaleX(0); 
+  transform-origin:left; }
+  
+.analysis-active .bar span { 
+  animation:grow-bar .9s cubic-bezier(.18,.78,.28,1) forwards; }
+
+.metric-card,.panel { 
+  background:var(--stanford-card-bg); 
+  border:1px solid transparent; 
+  border-radius:10px; 
+  box-shadow:0 7px 22px rgb(31 25 20 / .06); 
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease; }
+  
+.metric-card:hover,.panel:hover { 
+  transform:translateY(-5px); 
+  border-color:rgb(140 21 21 / .2); 
+  box-shadow:0 14px 28px rgb(31 25 20 / .1); }
+  
+.fit-table tbody tr { 
+  cursor:pointer; 
+  transition:background .2s ease; }
+  
+.fit-table tbody tr:hover,.fit-table tbody tr:focus-visible,.fit-table tbody tr.is-selected { 
+  background:#f9ece8; 
+  outline:none; }
+  
+@keyframes grow-bar { to { transform:scaleX(1); } }

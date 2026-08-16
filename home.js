@@ -1,94 +1,43 @@
- const form = document.getElementById('studentForm');
-        const startBtn = document.getElementById('startBtn');
-        const fields = {
-            name: document.getElementById('name'),
-            email: document.getElementById('email'),
-            studentId: document.getElementById('studentId'),
-            field: document.getElementById('field'),
-            interest: document.getElementById('interest')
-        };
+// Mobile navigation toggles an accessible compact menu on small screens.
+const menuButton = document.querySelector('.menu-toggle');
+const siteNav = document.querySelector('.site-nav');
+menuButton?.addEventListener('click', () => { const open = siteNav.classList.toggle('open'); menuButton.setAttribute('aria-expanded', open); });
 
-        function validateField(id, value) {
-            const errorNode = document.querySelector(`[data-error-for="${id}"]`);
-            let message = '';
+// Custom regex rules produce immediate inline validation
+const form = document.getElementById('studentForm');
+const rules = {
+  name: { 
+    regex: /^[A-Za-z][A-Za-z .'-]{1,49}$/, 
+    message: 'Use at least 2 letters; numbers and special symbols are not allowed.' },
+  email: { 
+    regex: /^[a-zA-Z0-9._%+-]+@([a-zA-Z0-9.-]+\.)?(com|edu|ac\.[a-z]{2})$/i, 
+    message: 'Use your institutional address, e.g. student.id@bse.ac.mu.' },
+  studentId: { 
+    regex: /^BSE-\d{4}-\d{3,4}$/i, 
+    message: 'Use the format BSE-2026-1234.' },
+  interest: { 
+    regex: /^.{3,80}$/, 
+    message: 'Tell us a little more (3-80 characters).' }
+};
 
-            if (id === 'name' && value.trim().length < 2) {
-                message = 'Please enter your full name.';
-            }
-            if (id === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                message = 'Please enter a valid email address.';
-            }
-            if (id === 'studentId' && value.trim().length < 4) {
-                message = 'Student ID is required.';
-            }
-            if (id === 'field' && !value) {
-                message = 'Please select your field.';
-            }
-            if (id === 'interest' && value.trim().length < 3) {
-                message = 'Please tell us your main interest.';
-            }
+function validate(id) { 
+  const input = document.getElementById(id); 
+  const error = document.querySelector(`[data-error-for="${id}"]`); 
+  const valid = rules[id].regex.test(input.value.trim()); 
+  input.classList.toggle('is-valid', valid); 
+  input.classList.toggle('is-invalid', input.value !== '' && !valid); 
+  error.textContent = valid || input.value === '' ? '' : rules[id].message; return valid; }
 
-            errorNode.textContent = message;
-            fields[id].classList.toggle('invalid', Boolean(message));
-            return !message;
-        }
+Object.keys(rules).forEach((id) => ['input', 'blur'].forEach((eventName) => 
+  document.getElementById(id).addEventListener(eventName, () => validate(id))));
+form.addEventListener('submit', (event) => { event.preventDefault(); 
+  if (!Object.keys(rules).every(validate)) 
+    return; localStorage.setItem('studentProfile', JSON.stringify(Object.fromEntries(Object.keys(rules).map((id) => [id, 
+  document.getElementById(id).value.trim()])))); window.location.href = 'gcgo.html'; });
 
-        function checkFormValidity() {
-            const isValid = Object.keys(fields).every((key) => validateField(key, fields[key].value));
-            startBtn.disabled = !isValid;
-            return isValid;
-        }
-
-        Object.keys(fields).forEach((key) => {
-            fields[key].addEventListener('input', () => {
-                validateField(key, fields[key].value);
-                checkFormValidity();
-            });
-            fields[key].addEventListener('change', () => {
-                validateField(key, fields[key].value);
-                checkFormValidity();
-            });
-        });
-
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            if (!checkFormValidity()) return;
-
-            const profile = {
-                name: fields.name.value.trim(),
-                email: fields.email.value.trim(),
-                studentId: fields.studentId.value.trim(),
-                field: fields.field.value,
-                interest: fields.interest.value.trim()
-            };
-
-            localStorage.setItem('studentProfile', JSON.stringify(profile));
-            window.location.href = 'gcgo.html';
-        });
-
-const interestInput = document.getElementById('interest');
-const startBtn = document.getElementById('startBtn');
-
-interestInput.addEventListener('input', () => {
-  // Enables the button when the user types something
-  if (interestInput.value.trim() !== '') {
-    startBtn.disabled = false;
-  } else {
-    startBtn.disabled = true;
-  }
-});
-
-const menuToggle = document.getElementById('menuToggle');
-const navLinks = document.getElementById('navLinks');
-
-menuToggle.addEventListener('click', () => {
-  // Toggles the visibility of the nav links
-  navLinks.classList.toggle('active');
-});
-
-// Optional: Close menu when a link inside is clicked
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('active');
-  });
-});
+// Sections enter once as the student scrolls, keeping motion purposeful and lightweight.
+const revealTargets = document.querySelectorAll('.reveal-on-scroll');
+const revealObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } });
+}, { threshold: 0.16 });
+revealTargets.forEach((target) => revealObserver.observe(target));

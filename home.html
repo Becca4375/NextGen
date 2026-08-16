@@ -1,211 +1,127 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GCGO Advisor</title>
-    <link rel="stylesheet" href="base.css">
-    <link rel="stylesheet" href="home.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GCGO Advisor | Find your impact pathway</title>
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="home.css">
 </head>
-<body>
-
-    <!--top navigation with search -->
-    <header class="navbar">
-        <div class="logo">
-            <img src="images/logo.png" alt="GCGO Advisor Logo">
-        </div>
-        <div class="search-container">
-            <input type="text" placeholder="Search global goals, skills, projects..." id="searchInput">
-            <button class="search-btn">🔍</button> 
-        </div>
-        <div class="nav-icons">
-            <span>👤 profile</span>
-        </div>
-    </header>
-
-    <!--hero section with circular pillars-->
-    <section class="hero-banner">
-        <h2>connect you skills to global citizen goals</h2>
-
-        <div class="circular-circular-categories">
-            <div class="category-item">
-                <div class=""circle edu-circle">📚</div>
-                <span>Education</span>
-            </div>
-            <div class="category-item">
-                <div class=""circle health-circle">🩺</div>     
-                <span>Health</span>
-            </div>
-            <div class="category-item">
-                <div class=""circle climate-circle">🌱</div>    
-                <span>Climate</span>
-            </div>
-            <div class="category-item">
-                <div class=""circle women-circle">⚡</div>
-                <span>Women's Empowerment</span>
-            </div>
-            <div class="category-item">
-                <div class=""circle tech-circle">💻</div>
-                <span>Technology</span>
-            </div>
-        </div>
+<body class="page-home">
+  <header class="site-header">
+    <a class="brand" href="home.html">
+      <img src="images/logo.png" alt="GCGO Advisor logo">
+      <span>NextGen<small>Connecting skills to global goals</small></span>
+    </a>
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <ul class="nav-list">
+        <li><a href="home.html" aria-current="page">Home</a></li>
+        <li><a href="gcgo.html">Take the quiz</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-copy" data-reveal>
+        <p class="eyebrow">Your impact pathway</p>
+        <h1>Find the cause where your skills can matter most.</h1>
+        <p class="lead">Discover a Global Citizenship &amp; Goals pathway that connects what you care about with practical action.</p>
+        <a class="hero-link" href="#start-title">Begin your journey <span aria-hidden="true">→</span></a>
+      </div>
+      <aside class="hero-card" aria-label="Four global goal pathways">
+        <p>Explore a pathway</p>
+        <ul>
+          <li><span>01</span> Education</li>
+          <li><span>02</span> Health</li>
+          <li><span>03</span> Climate change</li>
+          <li><span>04</span> Women empowerment</li>
+        </ul>
+      </aside>
     </section>
-
-    <!--featured project grid section -->
-    <main class="content-section">
-        <h3>Explore featured student initiatives</h3>
-
-
-        <div class="project-grid">
-            <!--card 1-->
-            <div class="project-card">
-                <img src="images/project1.jpg" alt="Project 1">
-                <div class="card-body">
-                    <h4>Digital Literacy Workshops</h4>
-                    <p>Empowering communities through technology education.</p>
-                </div>
-            </div>
-
-            <!--card 2-->
-            <div class="project-card">
-                <img src="images/project2.jpg" alt="Project 2">
-                <div class="card-body">
-                    <h4>Community Health Campaigns</h4>
-                    <p>Promoting wellness and preventive care in local neighborhoods.</p>
-                </div>
-            </div>
-
-            <!--card 3-->
-            <div class="project-card">
-                <img src="images/project3.jpg" alt="Project 3">
-                <div class="card-body">
-                    <h4>Climate Action Initiatives</h4>
-                    <p>Engaging students in sustainability and environmental projects.</p>
-                </div>
-            </div>
-
-            <!--card 4-->
-            <div class="project-card">
-                <img src="images/project4.jpg" alt="Project 4">
-                <div class="card-body">
-                    <h4>Women's Empowerment Programs</h4>
-                    <p>Supporting gender equality and leadership development.</p>
-                </div>
-            </div>
+    <div class="impact-ticker" aria-label="GCGO focus areas">
+      <span>Education</span>
+      <span>Health</span>
+      <span>Climate action</span>
+      <span>Women empowerment</span>
+      <span>Global citizenship</span>
+    </div>
+    <section class="onboarding reveal-on-scroll" aria-labelledby="start-title">
+      <div class="onboarding-copy">
+        <p class="eyebrow">Start your journey</p>
+        <h2 id="start-title">Tell us a little about yourself.</h2>
+        <p>Your details personalise the recommendation at the end of the quiz. Every field provides feedback as you type.</p>
+      </div>
+      <form id="studentForm" novalidate>
+        <div class="field">
+          <label for="name">Full name</label>
+          <input id="name" autocomplete="name" placeholder="e.g. Aisha Mohamed">
+          <small class="error-message" data-error-for="name"></small>
         </div>
-    </main>
-
-    <main class="landing-page">
-        <section class="header-panel">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <p class="eyebrow">Grand Challenges &amp; Grand Opportunities</p>
-                </div>
-            </div>
+        <div class="field">
+          <label for="email">Institutional email</label>
+          <input id="email" type="email" autocomplete="email" placeholder="student.id@bse.ac.mu">
+          <small class="error-message" data-error-for="email"></small>
         </div>
-    </main>
-
-    <main class="landing-page">
-        <section class="header-panel">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <p class="eyebrow">Grand Challenges &amp; Grand Opportunities</p>
-                <h1>Welcome to the GCGO Advisor</h1>
-                <p>Your mission, our priority.</p>
-                <div class="hero-actions">
-                    <a href="#studentForm" class="primary-btn">Get Started</a>
-                    <a href="gcgo.html" class="secondary-btn">Take Quiz</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="hero-panel">
-            <div class="hero-copy">
-                <p class="eyebrow">Grand Challenges &amp; Grand Opportunities</p>
-                <h1>Find the right student project path for you.</h1>
-                <p>Begin with your profile and discover which GCGO pillar best matches your strengths, interests, and community impact goals.</p>
-            </div>
-
-            <form class="student-form" id="studentForm" novalidate>
-                <h2>Student Profile</h2>
-
-                <label>
-                    <span>Full Name</span>
-                    <input type="text" id="name" placeholder="Enter your full name">
-                    <small class="error-message" data-error-for="name"></small>
-                </label>
-
-                <label>
-                    <span>Email Address</span>
-                    <input type="email" id="email" placeholder="you@example.com">
-                    <small class="error-message" data-error-for="email"></small>
-                </label>
-
-                <label>
-                    <span>Student ID</span>
-                    <input type="text" id="studentId" placeholder="e.g. STU-2049">
-                    <small class="error-message" data-error-for="studentId"></small>
-                </label>
-
-                <label>
-                    <span>Field of Study</span>
-                    <select id="field">
-                        <option value="">Select your field</option>
-                        <option>Computer Science</option>
-                        <option>Engineering</option>
-                        <option>Business</option>
-                        <option>Health Sciences</option>
-                        <option>Social Sciences</option>
-                        <option>Arts &amp; Design</option>
-                    </select>
-                    <small class="error-message" data-error-for="field"></small>
-                </label>
-
-                <label>
-                    <span>Top Interest</span>
-                    <input type="text" id="interest" placeholder="Example: innovation, education, health">
-                    <small class="error-message" data-error-for="interest"></small>
-                </label>
-
-                <button type="submit" class="primary-btn" id="startBtn">Start Assessment</button>
-            </form>
-        </section>
-
-        <section class="feature-grid">
-            <article class="feature-card">
-                <span class="feature-badge">01</span>
-                <h3>Profile Match</h3>
-                <p>Understand which challenge area aligns with your skills, interests, and academic focus.</p>
-            </article>
-            <article class="feature-card">
-                <span class="feature-badge">02</span>
-                <h3>Interactive Quiz</h3>
-                <p>Answer short, engaging questions with progress tracking and timers for quick decision-making.</p>
-            </article>
-            <article class="feature-card">
-                <span class="feature-badge">03</span>
-                <h3>Actionable Results</h3>
-                <p>Receive recommendations, impact insights, and project suggestions based on your answers.</p>
-            </article>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <div class="footer-brand">
-            <h2>GCGO Advisor</h2>
+        <div class="field">
+          <label for="studentId">Student ID</label>
+          <input id="studentId" placeholder="BSE-2026-1234">
+          <small class="error-message" data-error-for="studentId"></small>
         </div>
-        <nav class="footer-nav">
-            <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="gcgo.html">Quiz</a></li>
-                <li><a href="results.html">Results</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </footer>
+        <div class="field">
+          <label for="interest">One issue you care about</label>
+          <input id="interest" placeholder="e.g. equal access to education">
+          <small class="error-message" data-error-for="interest"></small>
+        </div>
+        <button class="primary-btn" type="submit">Begin the quiz <span aria-hidden="true">→</span></button>
+      </form>
+    </section>
+    
+    <section class="editorial-section reveal-on-scroll">
+      <p class="eyebrow">How it works</p>
+      <h2>A thoughtful starting point for action.</h2>
+      <div class="steps">
+        <article>
+          <span>01</span>
+          <h3>Reflect</h3>
+          <p>Answer nine short questions, including interactive media activities.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Discover</h3>
+          <p>See how your answers align with the four GCGO themes.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Act</h3>
+          <p>Leave with a practical idea for a first project or initiative.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>&copy; 2026 Your Company. All rights reserved.</p>
 
-    <script src="home.js"></script>
+      <div class="social-links">
+        <!-- LinkedIn -->
+        <a href="https://linkedin.com" target="_blank">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/linkedin.svg" alt="LinkedIn" width="20" height="20">
+        </a>
+
+        <!-- X / Twitter -->
+        <a href="https://x.com" target="_blank">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/x.svg" alt="X" width="20" height="20">
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://instagram.com" target="_blank">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/instagram.svg" alt="Instagram" width="20" height="20">
+        </a>
+      </div>
+    </div>
+  </footer>
+  <script src="home.js"></script>
 </body>
 </html>
-
-

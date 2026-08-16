@@ -13,11 +13,11 @@
             <img src="images/logo.png" alt="GCGO Advisor Logo">
         </div>
         <h1>NextGen</h1>
+        <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">&#9776;</button>
         <nav class="nav">
             <ul>
                 <li><a href="home.html">Home</a></li>
-                <li><a href="gcgo.html">Quiz</a></li>
-                <li><a href="results.html">Results</a></li>
+                <li><a href="gcgo.html">Take the Quiz</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -38,6 +38,11 @@
                 <p><strong>Email:</strong> advisor@nextgen.edu</p>
                 <p><strong>Office:</strong> Innovation Hub, Student Impact Center</p>
                 <p><strong>Availability:</strong> Mon - Fri, 9:00 AM - 5:00 PM</p>
+                <p><strong>GitHub:</strong> 
+                    <a href="https://github.com/Becca4275" target="_blank" rel="noopener noreferrer">
+                        my projects
+                    </a>
+                </p>
             </aside>
 
             <form class="contact-card contact-form" id="feedbackForm" novalidate>
@@ -72,67 +77,35 @@
                 </label>
 
                 <button class="primary-btn" type="submit">Send Feedback</button>
+                <p id="formStatus" class="success-message" aria-live="polite"></p>
             </form>
         </section>
     </main>
 
     <footer class="site-footer">
-        <div class="footer-brand">
-            <h2>GCGO Advisor</h2>
+        <div class="footer-content">
+            <p>&copy; 2026 Your Company. All rights reserved.</p>
+
+            <div class="social-links">
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com" target="_blank">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/linkedin.svg" alt="LinkedIn" width="20" height="20">
+                </a>
+
+                <!-- X / Twitter -->
+                <a href="https://x.com" target="_blank">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/x.svg" alt="X" width="20" height="20">
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://instagram.com" target="_blank">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/instagram.svg" alt="Instagram" width="20" height="20">
+                </a>
+            </div>
         </div>
-        <nav class="footer-nav">
-            <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="gcgo.html">Quiz</a></li>
-                <li><a href="results.html">Results</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
     </footer>
 
-    <script>
-        const feedbackForm = document.getElementById('feedbackForm');
-        const feedbackFields = {
-            feedbackName: document.getElementById('feedbackName'),
-            feedbackEmail: document.getElementById('feedbackEmail'),
-            feedbackType: document.getElementById('feedbackType'),
-            feedbackMessage: document.getElementById('feedbackMessage')
-        };
-
-        function validateFeedbackField(id, value) {
-            const errorNode = document.querySelector(`[data-error-for="${id}"]`);
-            let message = '';
-
-            if (id === 'feedbackName' && value.trim().length < 2) {
-                message = 'Please enter your name.';
-            }
-            if (id === 'feedbackEmail' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                message = 'Please enter a valid email.';
-            }
-            if (id === 'feedbackType' && !value) {
-                message = 'Choose a feedback type.';
-            }
-            if (id === 'feedbackMessage' && value.trim().length < 10) {
-                message = 'Please enter a message with at least 10 characters.';
-            }
-
-            errorNode.textContent = message;
-            feedbackFields[id].classList.toggle('invalid', Boolean(message));
-            return !message;
-        }
-
-        Object.keys(feedbackFields).forEach((key) => {
-            feedbackFields[key].addEventListener('input', () => validateFeedbackField(key, feedbackFields[key].value));
-            feedbackFields[key].addEventListener('change', () => validateFeedbackField(key, feedbackFields[key].value));
-        });
-
-        feedbackForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const valid = Object.keys(feedbackFields).every((key) => validateFeedbackField(key, feedbackFields[key].value));
-            if (!valid) return;
-            alert('Thank you for your feedback. The GCGO advisor team will respond soon.');
-            feedbackForm.reset();
-        });
-    </script>
+    <script src="contact.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
