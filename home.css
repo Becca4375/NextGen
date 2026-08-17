@@ -354,6 +354,24 @@
 
 /*Responsive adjustments */
 @media (max-width:760px) {
+    .impact-ticker {
+        flex-wrap:wrap;
+        overflow:visible;
+        white-space:normal;
+    }
+
+    .impact-ticker span {
+        flex:1 1 50%;
+        padding:.7rem .6rem;
+        font-size:.68rem;
+        line-height:1.25;
+        text-align:center;
+    }
+
+    .impact-ticker span::after {
+        display:none;
+    }
+
     .page-home .site-header {
         padding:1rem 1.1rem;
     }
