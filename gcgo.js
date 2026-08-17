@@ -200,7 +200,7 @@ const questions = [
                     <img src="images/hero-background.jpg" alt="Students collaborating in a community setting">
                     ${question.options.map((option, index) => `<button class="option-btn hotspot hotspot-${index}" type="button" data-index="${index}"><span>${index + 1}</span>${option.text}</button>`).join('')}<p>Select a numbered region on the image.</p></div>`;
             if (question.type === 'audio')
-                return `<div class="media-player"><p>Scenario: a team needs someone to explain its plan clearly to community members.</p><audio class="scenario-audio" preload="metadata"><source src="images/scenario-audio.mp3.mp4" type="audio/mp4">Your browser does not support audio playback.</audio><div class="media-controls"><button type="button" data-audio-action="play">Play</button><button type="button" data-audio-action="pause">Pause</button><button type="button" data-audio-action="replay">Replay</button></div><small class="media-status" aria-live="polite">Loading briefing…</small></div>`;
+                return `<div class="media-player"><p>Scenario: a team needs someone to explain its plan clearly to community members.</p><audio class="scenario-audio" controls preload="metadata"><source src="images/scenario-audio.mp3.mp4" type="audio/mp4">Your browser does not support audio playback.</audio><small class="media-status" aria-live="polite">Loading briefing.</small></div>`;
             if (question.type === 'video') return `<div class="video-scenario">
                 <video class="scenario-video" muted playsinline controls
                     poster="images/hero-background.jpg"
@@ -225,7 +225,7 @@ const questions = [
             if (question.type === 'video') {
                 const video = card.querySelector('.scenario-video'), start = card.querySelector('.video-start'), status = card.querySelector('.video-status'), options = card.querySelector('.video-options');
                 let released = false;
-                const pauseAtPrompt = () => { if (released) return; released = true; video.pause(); options.classList.remove('is-locked'); status.textContent = 'Pause point: choose how you would respond.'; };
+                const pauseAtPrompt = () => { if (released) return; released = true; options.classList.remove('is-locked'); status.textContent = 'Video playing. Choose your answer when ready.'; };
                 video.addEventListener('timeupdate', () => { if (video.currentTime >= 1.8) pauseAtPrompt(); });
                 video.addEventListener('loadeddata', () => { status.textContent = 'Briefing ready to play.'; });
                 video.addEventListener('error', () => { start.disabled = true; status.textContent = 'The briefing video could not be loaded.'; });

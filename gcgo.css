@@ -332,9 +332,9 @@
 .scenario-video { 
     display:block; 
     width:100%; 
-    aspect-ratio:16 / 9; 
+    max-height:70vh;
     background:#24372b; 
-    object-fit:cover; }
+    object-fit:contain; }
 
 .video-start { 
     margin-top:.75rem; }
