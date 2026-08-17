@@ -150,16 +150,23 @@
 /*Impact ticker */
 .impact-ticker {
     display:flex;
-    gap:0;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap:1.25rem 1.75rem;
+    width: 100%;
     overflow:hidden;
     background:var(--stanford-cardinal);
     color:#fff;
     white-space:nowrap;
+    padding: 0.85rem 1.5rem;
 }
 
 .impact-ticker span {
-    display:inline-block;
-    flex:none;
+    display:inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nonwrap;
     padding:1rem 2rem;
     font-size:.82rem;
     font-weight:800;
@@ -352,7 +359,7 @@
 
 
 
-/*Responsive adjustments */
+/*Responsive designs */
 @media (max-width:760px) {
     .impact-ticker {
         flex-wrap:wrap;
