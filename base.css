@@ -18,7 +18,7 @@
 html { scroll-behavior:smooth; } 
 
 body { margin:0; 
-    min-width:320px; 
+    min-width:0;
     min-height:100vh;
     display:flex;
     flex-direction:column;
@@ -465,6 +465,4 @@ a[href]:focus-visible,button:focus-visible,select:focus-visible {
     
 .shared-reveal.is-visible { 
     opacity:1; transform:none; }
-
-
 

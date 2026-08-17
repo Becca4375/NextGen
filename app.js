@@ -9,7 +9,7 @@ document.querySelectorAll('.site-header').forEach((header) => {
   });
 });
 
-const page = location.pathname.split('/').pop() || 'home.html';
+const page = location.pathname.split('/').pop() || 'index.html';
 document.querySelectorAll('.site-nav a, .nav a, .footer-links a, .footer-nav a').forEach((link) => {
   if (link.getAttribute('href') === page) link.setAttribute('aria-current', 'page');
 });
