@@ -35,10 +35,23 @@ document.querySelectorAll('.fit-table tbody tr').forEach((row) => {
 });
 
 const pathwayData = {
-  education: { message: 'Education turns your strengths into practical learning opportunities for others.', action: 'Pilot a peer learning lab', rating: 'High fit' },
-  health: { message: 'Health works best when you pair awareness with trusted community partners.', action: 'Run a wellbeing outreach session', rating: 'Strong fit' },
-  climate: { message: 'Climate action becomes tangible when you track one visible behaviour change.', action: 'Launch a visible eco-action challenge', rating: 'Growing fit' },
-  women: { message: 'Women empowerment thrives through safe spaces, peer support, and leadership opportunities.', action: 'Create a peer mentorship circle', rating: 'Strong fit' }
+  education: { 
+    message: 'Education turns your strengths into practical learning opportunities for others.', 
+    action: 'Pilot a peer learning lab', 
+    rating: 'High fit' },
+  health: { 
+    message: 'Health works best when you pair awareness with trusted community partners.', 
+    action: 'Run a wellbeing outreach session', 
+    rating: 'Strong fit' },
+  climate: { 
+    message: 
+    'Climate action becomes tangible when you track one visible behaviour change.', 
+    action: 'Launch a visible eco-action challenge', 
+    rating: 'Growing fit' },
+  women: { 
+    message: 'Women empowerment thrives through safe spaces, peer support, and leadership opportunities.', 
+    action: 'Create a peer mentorship circle', 
+    rating: 'Strong fit' }
 };
 
 const profile = window.gcgoResult?.profile || {};
@@ -56,7 +69,10 @@ function renderPriorityBars(activePathway) {
     .map(([key, value]) => {
       const percentage = Math.max(8, Math.round((Number(value) / profileMaximum) * 100));
       const label = key.charAt(0).toUpperCase() + key.slice(1);
-      return `<div class="bar-item ${key === activePathway ? 'is-active' : ''}"><label>${label} <strong>${percentage}%</strong></label><div class="bar"><span style="width:${percentage}%"></span></div></div>`;
+      return `<div class="bar-item ${key === activePathway ? 'is-active' : ''}">
+      <label>${label} <strong>${percentage}%</strong></label>
+      <div class="bar"><span style="width:${percentage}%"></span>
+      </div></div>`;
     }).join('');
   analysisMain?.classList.add('analysis-active');
 }
