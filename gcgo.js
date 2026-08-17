@@ -194,33 +194,41 @@ const questions = [
         }
 
         function mediaMarkup(question) {
-            if (question.type === 'hotspot') return `<div class="hotspot-stage" role="group" aria-label="Choose an area on the impact map"><img src="images/hero-background.jpg" alt="Students collaborating in a community setting">${question.options.map((option, index) => `<button class="option-btn hotspot hotspot-${index}" type="button" data-index="${index}"><span>${index + 1}</span>${option.text}</button>`).join('')}<p>Select a numbered region on the image.</p></div>`;
-            if (question.type === 'audio') return `<div class="media-player"><p>Scenario: a team needs someone to explain its plan clearly to community members.</p><audio class="scenario-audio" preload="metadata" src="${createScenarioAudio()}"></audio><div class="media-controls"><button type="button" data-audio-action="play">Play</button><button type="button" data-audio-action="pause">Pause</button><button type="button" data-audio-action="replay">Replay</button></div><small class="media-status" aria-live="polite">Ready to play.</small></div>`;
-            if (question.type === 'video') return `<div class="video-scenario"><video class="scenario-video" muted playsinline poster="images/hero-background.jpg" aria-label="Project briefing video"></video><button type="button" class="video-start">Play briefing</button><p class="video-status" aria-live="polite">Play the briefing to unlock your answer choices.</p></div>`;
+            if (question.type === 'hotspot') 
+                return `<div class="hotspot-stage" role="group" 
+                    aria-label="Choose an area on the impact map">
+                    <img src="images/hero-background.jpg" alt="Students collaborating in a community setting">
+                    ${question.options.map((option, index) => `<button class="option-btn hotspot hotspot-${index}" type="button" data-index="${index}"><span>${index + 1}</span>${option.text}</button>`).join('')}<p>Select a numbered region on the image.</p></div>`;
+            if (question.type === 'audio')
+                return `<div class="media-player"><p>Scenario: a team needs someone to explain its plan clearly to community members.</p><audio class="scenario-audio" preload="metadata"><source src="images/scenario-audio.mp3.mp4" type="audio/mp4">Your browser does not support audio playback.</audio><div class="media-controls"><button type="button" data-audio-action="play">Play</button><button type="button" data-audio-action="pause">Pause</button><button type="button" data-audio-action="replay">Replay</button></div><small class="media-status" aria-live="polite">Loading briefing…</small></div>`;
+            if (question.type === 'video') return `<div class="video-scenario">
+                <video class="scenario-video" muted playsinline controls
+                    poster="images/hero-background.jpg"
+                    aria-label="Project briefing video"
+                    src="images/video.mp4">
+                </video>
+                <button type="button" class="video-start">Play briefing</button>
+                <p class="video-status" aria-live="polite">
+                    Play the briefing to unlock your answer choices.
+                </p></div>`;
             return '';
         }
 
         function setupMedia(card, question) {
             if (question.type === 'audio') {
                 const audio = card.querySelector('.scenario-audio'); const status = card.querySelector('.media-status');
-                card.querySelectorAll('[data-audio-action]').forEach((button) => button.addEventListener('click', () => { const action = button.dataset.audioAction; if (action === 'replay') audio.currentTime = 0; action === 'pause' ? audio.pause() : audio.play(); }));
+                card.querySelectorAll('[data-audio-action]').forEach((button) => button.addEventListener('click', () => { const action = button.dataset.audioAction; if (action === 'replay') audio.currentTime = 0; if (action === 'pause') audio.pause(); else audio.play().catch(() => { status.textContent = 'Audio could not play. Check the file format.'; }); }));
                 audio.addEventListener('play', () => { status.textContent = 'Playing scenario.'; }); audio.addEventListener('pause', () => { if (!audio.ended) status.textContent = 'Paused.'; }); audio.addEventListener('ended', () => { status.textContent = 'Scenario finished. Choose your answer.'; });
+                audio.addEventListener('canplay', () => { status.textContent = 'Ready to play.'; });
+                audio.addEventListener('error', () => { status.textContent = 'Audio could not be loaded. Use an MP3 or WAV file.'; });
             }
             if (question.type === 'video') {
                 const video = card.querySelector('.scenario-video'), start = card.querySelector('.video-start'), status = card.querySelector('.video-status'), options = card.querySelector('.video-options');
                 let released = false;
                 const pauseAtPrompt = () => { if (released) return; released = true; video.pause(); options.classList.remove('is-locked'); status.textContent = 'Pause point: choose how you would respond.'; };
                 video.addEventListener('timeupdate', () => { if (video.currentTime >= 1.8) pauseAtPrompt(); });
-                // Record a short canvas animation into an HTML5 video, avoiding a remote media dependency.
-                const canvas = document.createElement('canvas'); canvas.width = 640; canvas.height = 360;
-                const stream = canvas.captureStream?.(12);
-                if (stream && window.MediaRecorder) {
-                    const context = canvas.getContext('2d'); const chunks = [];
-                    const drawFrame = () => { context.fillStyle = '#24372b'; context.fillRect(0, 0, 640, 360); context.fillStyle = '#f7f3ee'; context.font = 'bold 34px Georgia'; context.fillText('Community project briefing', 54, 145); context.fillStyle = '#e2b77d'; context.font = '22px sans-serif'; context.fillText('Listen. Learn. Build together.', 54, 198); };
-                    const recorder = new MediaRecorder(stream); recorder.ondataavailable = (event) => chunks.push(event.data);
-                    recorder.onstop = () => { video.src = URL.createObjectURL(new Blob(chunks, { type: 'video/webm' })); start.disabled = false; status.textContent = 'Briefing ready to play.'; };
-                    recorder.start(); const painter = setInterval(drawFrame, 80); setTimeout(() => { clearInterval(painter); recorder.stop(); }, 2500); start.disabled = true;
-                }
+                video.addEventListener('loadeddata', () => { status.textContent = 'Briefing ready to play.'; });
+                video.addEventListener('error', () => { start.disabled = true; status.textContent = 'The briefing video could not be loaded.'; });
                 start.addEventListener('click', () => { start.hidden = true; status.textContent = 'Briefing playing…'; video.play().catch(() => {}); setTimeout(pauseAtPrompt, 1800); });
             }
         }
